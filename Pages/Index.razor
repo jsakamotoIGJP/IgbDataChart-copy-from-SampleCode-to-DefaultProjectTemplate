@@ -1,0 +1,9 @@
+﻿@page "/"
+@inject NavigationManager NavigationManager
+@code
+{
+    protected override void OnInitialized()
+    {
+        this.NavigationManager.NavigateTo("./data-chart/1");
+    }
+}

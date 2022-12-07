@@ -1,0 +1,73 @@
+﻿@page "/data-chart/1"
+@using IgniteUI.Blazor.Controls
+
+<PageTitle>Data Chart 1</PageTitle>
+
+<div class="container vertical fill">
+
+    <div class="legend-title">
+        Highest Grossing Movie Franchises
+    </div>
+
+    <div class="legend">
+        <IgbLegend Orientation="LegendOrientation.Horizontal" Name="Legend" @ref="legend">
+        </IgbLegend>
+    </div>
+
+    <div class="container vertical fill parent">
+
+        <IgbDataChart Name="Chart" Width="100%" Height="100%" @ref="chart">
+            <IgbCategoryYAxis DataSource="HighestGrossingMovies"
+                              Gap="0.5"
+                              Overlap="-0.1"
+                              IsInverted="true"
+                              UseEnhancedIntervalManagement="true"
+                              EnhancedIntervalPreferMoreCategoryLabels="true"
+                              Label="Franchise"
+                              Name="yAxis">
+            </IgbCategoryYAxis>
+            <IgbNumericXAxis Title="Billions of U.S. Dollars"
+                             Name="xAxis">
+            </IgbNumericXAxis>
+            <IgbCategoryHighlightLayer Name="CategoryHighlightLayer">
+            </IgbCategoryHighlightLayer>
+            <IgbBarSeries XAxisName="xAxis"
+                          YAxisName="yAxis"
+                          ValueMemberPath="TotalRevenue"
+                          IsTransitionInEnabled="true"
+                          DataSource="HighestGrossingMovies"
+                          IsHighlightingEnabled="true"
+                          ShowDefaultTooltip="true"
+                          Title="Total Revenue of Franchise"
+                          Name="BarSeries1">
+            </IgbBarSeries>
+            <IgbBarSeries XAxisName="xAxis"
+                          YAxisName="yAxis"
+                          Title="Highest Grossing Movie in Series"
+                          ValueMemberPath="HighestGrossing"
+                          DataSource="HighestGrossingMovies"
+                          ShowDefaultTooltip="true"
+                          IsTransitionInEnabled="true"
+                          IsHighlightingEnabled="true"
+                          Name="BarSeries2">
+            </IgbBarSeries>
+            <IgbDataToolTipLayer Name="Tooltips">
+            </IgbDataToolTipLayer>
+        </IgbDataChart>
+
+    </div>
+</div>
+
+@code
+{
+    private IgbLegend legend;
+
+    private IgbDataChart chart;
+
+    private readonly HighestGrossingMovies HighestGrossingMovies = new();
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        chart.Legend = this.legend;
+    }
+}
